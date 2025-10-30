@@ -105,5 +105,5 @@ python demo.py
 
 Or analyze a specific file:
 ```bash
-python metadata_analyzer.py --file samples/your_file.jpg --analyze
+python metadata_Analyser.py --file samples/your_file.jpg --analyze
 ```

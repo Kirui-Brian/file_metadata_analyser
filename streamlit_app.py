@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-File Metadata Analyzer - Streamlit Web Interface
+File Metadata Analyser - Streamlit Web Interface
 A user-friendly web GUI for metadata extraction, analysis, and visualization.
 
 Author: MST 8407 Course Project
@@ -19,7 +19,7 @@ import os
 sys.path.insert(0, str(Path(__file__).parent))
 
 from core.extractor import MetadataExtractor
-from core.analyzer import MetadataAnalyzer
+from core.Analyser import MetadataAnalyser
 from core.reporter import MetadataReporter
 from utils.gps_mapper import GPSMapper
 from utils.sanitizer import MetadataSanitizer
@@ -27,7 +27,7 @@ from utils.file_handler import FileHandler
 
 # Configure page
 st.set_page_config(
-    page_title="File Metadata Analyzer",
+    page_title="File Metadata Analyser",
     page_icon="🔍",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -84,7 +84,7 @@ def main():
     """Main application function."""
     
     # Header
-    st.markdown('<div class="main-header">🔍 File Metadata Analyzer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">🔍 File Metadata Analyser</div>', unsafe_allow_html=True)
     st.markdown("**Digital Forensics Tool** | MST 8407 Course Project")
     
     # Sidebar
@@ -165,8 +165,8 @@ def analyze_files(uploaded_files, perform_analysis, show_exif, generate_map, sho
             # Perform analysis if requested
             analysis = None
             if perform_analysis:
-                analyzer = MetadataAnalyzer(metadata)
-                analysis = analyzer.analyze()
+                Analyser = MetadataAnalyser(metadata)
+                analysis = Analyser.analyze()
             
             results.append({
                 'filename': uploaded_file.name,
@@ -535,7 +535,7 @@ def sanitize_mode():
 def about_mode():
     """About and help mode."""
     
-    st.header("📚 About File Metadata Analyzer")
+    st.header("📚 About File Metadata Analyser")
     
     st.markdown("""
     ## 🔍 What is Metadata?
@@ -633,7 +633,7 @@ def about_mode():
     
     **Course**: MST 8407 Forensic Data Acquisition and Analysis  
     **Instructor**: Mr. Nelson Mutua  
-    **Project**: File Metadata Analyzer  
+    **Project**: File Metadata Analyser  
     **Date**: November 2025
     
     ## 📞 Getting Help

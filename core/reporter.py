@@ -23,7 +23,7 @@ class MetadataReporter:
         
         Args:
             metadata (Dict): Raw metadata from MetadataExtractor
-            analysis (Dict, optional): Analysis results from MetadataAnalyzer
+            analysis (Dict, optional): Analysis results from MetadataAnalyser
         """
         self.metadata = metadata
         self.analysis = analysis

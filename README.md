@@ -1,8 +1,8 @@
-# File Metadata Analyzer
+# File Metadata Analyser
 
 ## Project Overview
 
-**File Metadata Analyzer** is a comprehensive Python-based digital forensics tool designed to extract, analyze, and manipulate metadata from various file types including images, documents, videos, and audio files. This tool demonstrates the critical role of metadata in digital investigations and highlights how metadata can be manipulated or erased to conceal evidence.
+**File Metadata Analyser** is a comprehensive Python-based digital forensics tool designed to extract, analyze, and manipulate metadata from various file types including images, documents, videos, and audio files. This tool demonstrates the critical role of metadata in digital investigations and highlights how metadata can be manipulated or erased to conceal evidence.
 
 ## Objectives
 
@@ -45,7 +45,7 @@
 
 3. **Verify installation**:
    ```bash
-   python metadata_analyzer.py --help
+   python metadata_Analyser.py --help
    ```
 
 ## Usage
@@ -53,34 +53,34 @@
 ### Basic Command Structure
 
 ```bash
-python metadata_analyzer.py --file <path_to_file> [options]
+python metadata_Analyser.py --file <path_to_file> [options]
 ```
 
 ### Examples
 
 #### 1. Extract metadata from an image
 ```bash
-python metadata_analyzer.py --file samples/image.jpg --report json
+python metadata_Analyser.py --file samples/image.jpg --report json
 ```
 
 #### 2. Analyze a PDF document
 ```bash
-python metadata_analyzer.py --file samples/document.pdf --report text
+python metadata_Analyser.py --file samples/document.pdf --report text
 ```
 
 #### 3. Extract metadata from multiple files
 ```bash
-python metadata_analyzer.py --directory samples/ --report csv
+python metadata_Analyser.py --directory samples/ --report csv
 ```
 
 #### 4. Remove metadata from a file
 ```bash
-python metadata_analyzer.py --file samples/image.jpg --erase --output cleaned_image.jpg
+python metadata_Analyser.py --file samples/image.jpg --erase --output cleaned_image.jpg
 ```
 
 #### 5. Generate GPS map from image metadata
 ```bash
-python metadata_analyzer.py --file samples/photo.jpg --map
+python metadata_Analyser.py --file samples/photo.jpg --map
 ```
 
 ### Command-Line Options
@@ -117,11 +117,11 @@ This will:
 ```
 Course Project/
 │
-├── metadata_analyzer.py       # Main CLI application
+├── metadata_Analyser.py       # Main CLI application
 ├── core/
 │   ├── __init__.py
 │   ├── extractor.py           # Metadata extraction classes
-│   ├── analyzer.py            # Metadata analysis engine
+│   ├── Analyser.py            # Metadata analysis engine
 │   └── reporter.py            # Report generation
 │
 ├── utils/

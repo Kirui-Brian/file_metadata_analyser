@@ -1,8 +1,8 @@
-# Streamlit GUI Guide - File Metadata Analyzer
+# Streamlit GUI Guide - File Metadata Analyser
 
 ## 🎨 Web Interface Overview
 
-The File Metadata Analyzer now includes a **beautiful, user-friendly web interface** built with Streamlit!
+The File Metadata Analyser now includes a **beautiful, user-friendly web interface** built with Streamlit!
 
 ## 🚀 Quick Start
 

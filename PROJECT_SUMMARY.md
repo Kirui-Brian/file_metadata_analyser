@@ -1,8 +1,8 @@
-# 🎓 File Metadata Analyzer - Project Complete!
+# 🎓 File Metadata Analyser - Project Complete!
 
 ## ✅ Project Status: READY FOR USE
 
-Your comprehensive File Metadata Analyzer project has been successfully created!
+Your comprehensive File Metadata Analyser project has been successfully created!
 
 ---
 
@@ -11,14 +11,14 @@ Your comprehensive File Metadata Analyzer project has been successfully created!
 ```
 Course Project/
 │
-├── 📄 metadata_analyzer.py          # Main CLI application ⭐
+├── 📄 metadata_Analyser.py          # Main CLI application ⭐
 ├── 📄 demo.py                        # Interactive demonstration ⭐
 ├── 📄 create_samples.py              # Sample file generator
 │
 ├── 📂 core/                          # Core functionality
 │   ├── __init__.py
 │   ├── extractor.py                 # Metadata extraction
-│   ├── analyzer.py                  # Forensic analysis
+│   ├── Analyser.py                  # Forensic analysis
 │   └── reporter.py                  # Report generation
 │
 ├── 📂 utils/                         # Utility modules
@@ -99,27 +99,27 @@ That's it! Your tool is ready to use.
 
 ### Analyze a single file
 ```powershell
-python metadata_analyzer.py --file samples/photo.jpg --analyze
+python metadata_Analyser.py --file samples/photo.jpg --analyze
 ```
 
 ### Generate GPS map
 ```powershell
-python metadata_analyzer.py --file samples/photo.jpg --map
+python metadata_Analyser.py --file samples/photo.jpg --map
 ```
 
 ### Create JSON report
 ```powershell
-python metadata_analyzer.py --file samples/document.pdf --report json --output report.json
+python metadata_Analyser.py --file samples/document.pdf --report json --output report.json
 ```
 
 ### Remove metadata
 ```powershell
-python metadata_analyzer.py --file samples/photo.jpg --erase --output cleaned.jpg
+python metadata_Analyser.py --file samples/photo.jpg --erase --output cleaned.jpg
 ```
 
 ### Batch process directory
 ```powershell
-python metadata_analyzer.py --directory samples/ --analyze --report csv
+python metadata_Analyser.py --directory samples/ --analyze --report csv
 ```
 
 ---
@@ -149,16 +149,16 @@ python metadata_analyzer.py --directory samples/ --analyze --report csv
 ### Demo Commands to Show
 ```powershell
 # Show extraction
-python metadata_analyzer.py --file samples/photo.jpg
+python metadata_Analyser.py --file samples/photo.jpg
 
 # Show analysis
-python metadata_analyzer.py --file samples/document.pdf --analyze
+python metadata_Analyser.py --file samples/document.pdf --analyze
 
 # Show GPS map
-python metadata_analyzer.py --file samples/photo.jpg --map
+python metadata_Analyser.py --file samples/photo.jpg --map
 
 # Show sanitization
-python metadata_analyzer.py --file samples/photo.jpg --erase --output cleaned.jpg
+python metadata_Analyser.py --file samples/photo.jpg --erase --output cleaned.jpg
 ```
 
 ---
@@ -330,7 +330,7 @@ Before your presentation, verify:
 
 ## 🌟 You're All Set!
 
-Your File Metadata Analyzer is:
+Your File Metadata Analyser is:
 - ✅ **Complete**
 - ✅ **Professional**
 - ✅ **Well-documented**

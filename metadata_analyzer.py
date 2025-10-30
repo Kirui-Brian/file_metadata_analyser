@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-File Metadata Analyzer - Main CLI Application
+File Metadata Analyser - Main CLI Application
 A comprehensive tool for extracting, analyzing, and managing file metadata.
 
 Author: MST 8407 Course Project
@@ -16,7 +16,7 @@ from datetime import datetime
 sys.path.insert(0, str(Path(__file__).parent))
 
 from core.extractor import MetadataExtractor
-from core.analyzer import MetadataAnalyzer
+from core.Analyser import MetadataAnalyser
 from core.reporter import MetadataReporter
 from utils.file_handler import FileHandler
 from utils.gps_mapper import GPSMapper
@@ -39,7 +39,7 @@ def print_header():
     """Print application header."""
     header = f"""
 {'='*80}
-    FILE METADATA ANALYZER - Digital Forensics Tool
+    FILE METADATA Analyser - Digital Forensics Tool
     MST 8407 Forensic Data Acquisition and Analysis
 {'='*80}
 """
@@ -99,8 +99,8 @@ def analyze_single_file(args):
         analysis = None
         if args.analyze or args.report:
             print_info("Analyzing metadata for anomalies and privacy concerns...")
-            analyzer = MetadataAnalyzer(metadata)
-            analysis = analyzer.analyze()
+            Analyser = MetadataAnalyser(metadata)
+            analysis = Analyser.analyze()
             print_success(f"Analysis complete - Risk Level: {analysis.get('risk_level', 'N/A')}")
             print()
         
@@ -190,8 +190,8 @@ def analyze_directory(args):
                 metadata = extractor.extract_all()
                 
                 if args.analyze:
-                    analyzer = MetadataAnalyzer(metadata)
-                    analysis = analyzer.analyze()
+                    Analyser = MetadataAnalyser(metadata)
+                    analysis = Analyser.analyze()
                     metadata['analysis'] = analysis
                 
                 results.append(metadata)
@@ -308,27 +308,27 @@ def erase_metadata(args):
 def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(
-        description='File Metadata Analyzer - Extract and analyze file metadata',
+        description='File Metadata Analyser - Extract and analyze file metadata',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   # Analyze a single image
-  python metadata_analyzer.py --file photo.jpg
+  python metadata_Analyser.py --file photo.jpg
   
   # Analyze with detailed forensic analysis
-  python metadata_analyzer.py --file document.pdf --analyze --report text
+  python metadata_Analyser.py --file document.pdf --analyze --report text
   
   # Generate JSON report
-  python metadata_analyzer.py --file image.jpg --report json --output report.json
+  python metadata_Analyser.py --file image.jpg --report json --output report.json
   
   # Create GPS map from image
-  python metadata_analyzer.py --file photo.jpg --map
+  python metadata_Analyser.py --file photo.jpg --map
   
   # Analyze all files in a directory
-  python metadata_analyzer.py --directory ./samples --analyze --report json
+  python metadata_Analyser.py --directory ./samples --analyze --report json
   
   # Remove metadata from a file
-  python metadata_analyzer.py --file photo.jpg --erase --output cleaned.jpg
+  python metadata_Analyser.py --file photo.jpg --erase --output cleaned.jpg
         """
     )
     

@@ -1,4 +1,4 @@
-# File Metadata Analyzer - Presentation Guide
+# File Metadata Analyser - Presentation Guide
 
 ## MST 8407 Forensic Data Acquisition and Analysis
 **Instructor**: Mr. Nelson Mutua  
@@ -12,7 +12,7 @@
 ### 1. Introduction (2 minutes)
 
 #### Opening Statement
-"Good morning/afternoon. Today I'll be presenting the File Metadata Analyzer, a comprehensive digital forensics tool that demonstrates the critical role of metadata in investigations and how it can be manipulated or erased."
+"Good morning/afternoon. Today I'll be presenting the File Metadata Analyser, a comprehensive digital forensics tool that demonstrates the critical role of metadata in investigations and how it can be manipulated or erased."
 
 #### Project Objectives
 - Extract comprehensive metadata from various file types
@@ -68,11 +68,11 @@
 #### Technical Architecture
 
 ```
-File Metadata Analyzer
+File Metadata Analyser
 │
 ├── Core Modules
 │   ├── MetadataExtractor    → Extracts metadata from files
-│   ├── MetadataAnalyzer     → Analyzes for anomalies and privacy issues
+│   ├── MetadataAnalyser     → Analyzes for anomalies and privacy issues
 │   └── MetadataReporter     → Generates forensic reports
 │
 ├── Utility Modules
@@ -136,7 +136,7 @@ File Metadata Analyzer
 
 **Show 1: Metadata Extraction**
 ```bash
-python metadata_analyzer.py --file samples/photo.jpg --report text
+python metadata_Analyser.py --file samples/photo.jpg --report text
 ```
 - Point out: File size, timestamps, hash values
 - Highlight: Camera information, GPS coordinates
@@ -144,7 +144,7 @@ python metadata_analyzer.py --file samples/photo.jpg --report text
 
 **Show 2: GPS Mapping**
 ```bash
-python metadata_analyzer.py --file samples/photo.jpg --map
+python metadata_Analyser.py --file samples/photo.jpg --map
 ```
 - Open generated HTML map in browser
 - Show: Pinpoint location on map
@@ -152,7 +152,7 @@ python metadata_analyzer.py --file samples/photo.jpg --map
 
 **Show 3: Document Analysis**
 ```bash
-python metadata_analyzer.py --file samples/document.pdf --analyze
+python metadata_Analyser.py --file samples/document.pdf --analyze
 ```
 - Show: Author information, creation date, modification history
 - Highlight: Anomalies or privacy concerns flagged
@@ -160,7 +160,7 @@ python metadata_analyzer.py --file samples/document.pdf --analyze
 
 **Show 4: Metadata Sanitization**
 ```bash
-python metadata_analyzer.py --file samples/photo.jpg --erase --output cleaned.jpg
+python metadata_Analyser.py --file samples/photo.jpg --erase --output cleaned.jpg
 ```
 - Compare file sizes before/after
 - Re-analyze cleaned file to verify removal
@@ -168,7 +168,7 @@ python metadata_analyzer.py --file samples/photo.jpg --erase --output cleaned.jp
 
 **Show 5: Batch Processing**
 ```bash
-python metadata_analyzer.py --directory samples/ --analyze --report json
+python metadata_Analyser.py --directory samples/ --analyze --report json
 ```
 - Show: Processing multiple files
 - Display: Summary statistics
@@ -297,7 +297,7 @@ python demo.py
 - A: The tool cannot extract embedded metadata from encrypted files, only file system metadata (size, timestamps). This is a limitation of encryption - it protects both content and metadata.
 
 **Q2: Can this tool detect if metadata has been tampered with?**
-- A: Partially. The analyzer detects timestamp anomalies (e.g., access time before creation time) and can flag suspicious patterns. However, sophisticated tampering may be undetectable without baseline data.
+- A: Partially. The Analyser detects timestamp anomalies (e.g., access time before creation time) and can flag suspicious patterns. However, sophisticated tampering may be undetectable without baseline data.
 
 **Q3: What makes this tool different from existing tools like ExifTool?**
 - A: While ExifTool focuses on extraction, our tool adds forensic analysis, anomaly detection, privacy assessment, and integrated sanitization. It's designed specifically for forensic workflows with comprehensive reporting.
@@ -309,7 +309,7 @@ python demo.py
 - A: Absence of metadata is itself forensically significant - it may indicate sanitization, anti-forensic techniques, or certain file types. The tool flags this condition.
 
 **Q6: Can GPS coordinates be faked in EXIF data?**
-- A: Yes, EXIF data can be edited with various tools. That's why corroborating evidence is crucial. Our analyzer can flag inconsistencies that might indicate manipulation.
+- A: Yes, EXIF data can be edited with various tools. That's why corroborating evidence is crucial. Our Analyser can flag inconsistencies that might indicate manipulation.
 
 **Q7: How do you handle different time zones in timestamps?**
 - A: The tool preserves timestamp information as stored in files. Analysts must consider time zone context during interpretation.

@@ -1,4 +1,4 @@
-# File Metadata Analyzer - Requirements
+# File Metadata Analyser - Requirements
 # Python 3.10+
 
 # Image Processing and EXIF

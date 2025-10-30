@@ -1,4 +1,4 @@
-# File Metadata Analyzer - Project Report
+# File Metadata Analyser - Project Report
 
 **Course**: MST 8407 Forensic Data Acquisition and Analysis, DF  
 **Instructor**: Mr. Nelson Mutua  
@@ -24,7 +24,7 @@
 
 ## 1. Executive Summary
 
-This project presents the development and implementation of a comprehensive File Metadata Analyzer, a digital forensics tool designed to extract, analyze, and demonstrate the importance of file metadata in investigative contexts. The tool addresses the critical need for automated metadata analysis in digital forensics while highlighting privacy implications and anti-forensic techniques.
+This project presents the development and implementation of a comprehensive File Metadata Analyser, a digital forensics tool designed to extract, analyze, and demonstrate the importance of file metadata in investigative contexts. The tool addresses the critical need for automated metadata analysis in digital forensics while highlighting privacy implications and anti-forensic techniques.
 
 **Key Achievements:**
 - Developed a multi-format metadata extraction tool supporting images, documents, and media files
@@ -41,7 +41,7 @@ File metadata plays a crucial role in digital investigations, providing evidence
 ## 2. Introduction
 
 ### 2.1 Project Overview
-The File Metadata Analyzer is a Python-based digital forensics tool that extracts and analyzes metadata from various file types. Metadata, or "data about data," contains crucial information beyond the visible file content, including timestamps, authorship, location coordinates, and device information.
+The File Metadata Analyser is a Python-based digital forensics tool that extracts and analyzes metadata from various file types. Metadata, or "data about data," contains crucial information beyond the visible file content, including timestamps, authorship, location coordinates, and device information.
 
 ### 2.2 Problem Statement
 Digital forensic investigators need efficient tools to:
@@ -234,7 +234,7 @@ This project contributes to:
 ```
 ┌─────────────────────────────────────────┐
 │         CLI Application                  │
-│         (metadata_analyzer.py)           │
+│         (metadata_Analyser.py)           │
 └─────────────────┬───────────────────────┘
                   │
       ┌───────────┴───────────┐
@@ -245,7 +245,7 @@ This project contributes to:
 │   Modules   │         │   Modules   │
 ├─────────────┤         ├─────────────┤
 │ Extractor   │         │ FileHandler │
-│ Analyzer    │         │ GPSMapper   │
+│ Analyser    │         │ GPSMapper   │
 │ Reporter    │         │ Sanitizer   │
 └─────────────┘         └─────────────┘
 ```
@@ -260,7 +260,7 @@ This project contributes to:
 
 1. **Input**: File path or directory
 2. **Extraction**: MetadataExtractor reads file and extracts all metadata
-3. **Analysis**: MetadataAnalyzer examines metadata for forensic significance
+3. **Analysis**: MetadataAnalyser examines metadata for forensic significance
 4. **Reporting**: MetadataReporter generates formatted output
 5. **Output**: Reports in JSON/CSV/Text format, GPS maps
 
@@ -331,7 +331,7 @@ _extract_media_metadata() -> Dict[str, Any]
 - Streaming for large files
 - Clear error messages for missing dependencies
 
-#### 5.1.2 MetadataAnalyzer
+#### 5.1.2 MetadataAnalyser
 
 **Purpose**: Analyze metadata for forensic significance and anomalies
 
@@ -457,28 +457,28 @@ _extract_media_metadata() -> Dict[str, Any]
 
 **Command Structure:**
 ```
-python metadata_analyzer.py [INPUT] [OPERATION] [OPTIONS]
+python metadata_Analyser.py [INPUT] [OPERATION] [OPTIONS]
 ```
 
 **Examples:**
 ```bash
 # Basic analysis
-python metadata_analyzer.py --file photo.jpg
+python metadata_Analyser.py --file photo.jpg
 
 # With forensic analysis
-python metadata_analyzer.py --file photo.jpg --analyze
+python metadata_Analyser.py --file photo.jpg --analyze
 
 # Generate report
-python metadata_analyzer.py --file photo.jpg --report json --output report.json
+python metadata_Analyser.py --file photo.jpg --report json --output report.json
 
 # GPS mapping
-python metadata_analyzer.py --file photo.jpg --map
+python metadata_Analyser.py --file photo.jpg --map
 
 # Metadata removal
-python metadata_analyzer.py --file photo.jpg --erase --output cleaned.jpg
+python metadata_Analyser.py --file photo.jpg --erase --output cleaned.jpg
 
 # Batch processing
-python metadata_analyzer.py --directory samples/ --analyze --report csv
+python metadata_Analyser.py --directory samples/ --analyze --report csv
 ```
 
 ### 5.4 Code Quality Measures
@@ -1002,7 +1002,7 @@ Analysis: HIGH severity - Possible timestamp manipulation
 
 ### 9.1 Project Summary
 
-This project successfully developed a comprehensive File Metadata Analyzer tool that:
+This project successfully developed a comprehensive File Metadata Analyser tool that:
 
 ✅ **Extracts** comprehensive metadata from images, documents, and media files  
 ✅ **Analyzes** metadata for forensic significance and anomalies  
@@ -1128,7 +1128,7 @@ File metadata represents a critical but often overlooked aspect of digital evide
 4. **Metadata is dual-purpose** - Both an investigative tool and privacy concern
 5. **Awareness is crucial** - Education benefits all stakeholders
 
-The File Metadata Analyzer successfully bridges the gap between forensic investigation needs and privacy protection, serving as both a practical tool and an educational platform.
+The File Metadata Analyser successfully bridges the gap between forensic investigation needs and privacy protection, serving as both a practical tool and an educational platform.
 
 ---
 
@@ -1171,7 +1171,7 @@ See `README.md` for comprehensive usage documentation.
 ### Appendix C: Code Documentation
 All code includes detailed docstrings. Generate API documentation using:
 ```bash
-pydoc -w metadata_analyzer core.extractor core.analyzer core.reporter
+pydoc -w metadata_Analyser core.extractor core.Analyser core.reporter
 ```
 
 ### Appendix D: Sample Reports
@@ -1185,7 +1185,7 @@ See `PRESENTATION.md` for presentation guide and talking points.
 
 ### Appendix G: Source Code
 Available in the project directory:
-- `metadata_analyzer.py` - Main application
+- `metadata_Analyser.py` - Main application
 - `core/` - Core modules
 - `utils/` - Utility modules
 - `demo.py` - Demonstration script
