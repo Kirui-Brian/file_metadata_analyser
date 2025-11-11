@@ -230,42 +230,69 @@ class MetadataExtractor:
         if not IMAGE_SUPPORT:
             return {'error': 'Image support not available'}
         
+        gps_data = {}
+        
         try:
+            # Method 1: Try with Pillow
             with Image.open(self.file_path) as img:
                 exif = img.getexif()
-                if not exif:
-                    return None
-                
-                gps_info = exif.get_ifd(0x8825)  # GPS IFD
-                if not gps_info:
-                    return None
-                
-                gps_data = {}
-                for tag_id, value in gps_info.items():
-                    tag = GPSTAGS.get(tag_id, tag_id)
-                    gps_data[tag] = value
-                
-                # Convert to decimal degrees if coordinates are present
-                if 'GPSLatitude' in gps_data and 'GPSLongitude' in gps_data:
-                    lat = self._convert_to_degrees(gps_data['GPSLatitude'])
-                    lon = self._convert_to_degrees(gps_data['GPSLongitude'])
+                if exif:
+                    gps_info = exif.get_ifd(0x8825)  # GPS IFD
+                    if gps_info:
+                        for tag_id, value in gps_info.items():
+                            tag = GPSTAGS.get(tag_id, tag_id)
+                            gps_data[tag] = value
+            
+            # Method 2: If no GPS found, try with exifread
+            if not gps_data:
+                with open(self.file_path, 'rb') as f:
+                    tags = exifread.process_file(f, details=True)
+                    gps_tags = {k: v for k, v in tags.items() if k.startswith('GPS')}
                     
-                    # Apply direction
-                    if gps_data.get('GPSLatitudeRef') == 'S':
-                        lat = -lat
-                    if gps_data.get('GPSLongitudeRef') == 'W':
-                        lon = -lon
-                    
-                    gps_data['latitude_decimal'] = lat
-                    gps_data['longitude_decimal'] = lon
-                    gps_data['coordinates'] = f"{lat}, {lon}"
+                    if gps_tags:
+                        # Parse GPS coordinates from exifread format
+                        if 'GPS GPSLatitude' in gps_tags and 'GPS GPSLongitude' in gps_tags:
+                            lat_ref = str(gps_tags.get('GPS GPSLatitudeRef', 'N'))
+                            lon_ref = str(gps_tags.get('GPS GPSLongitudeRef', 'E'))
+                            
+                            # Convert exifread values to decimal
+                            lat_values = gps_tags['GPS GPSLatitude'].values
+                            lon_values = gps_tags['GPS GPSLongitude'].values
+                            
+                            gps_data['GPSLatitude'] = lat_values
+                            gps_data['GPSLongitude'] = lon_values
+                            gps_data['GPSLatitudeRef'] = lat_ref
+                            gps_data['GPSLongitudeRef'] = lon_ref
+                            
+                            # Add altitude if present
+                            if 'GPS GPSAltitude' in gps_tags:
+                                gps_data['GPSAltitude'] = float(gps_tags['GPS GPSAltitude'].values[0])
+            
+            # If still no GPS data found, return None
+            if not gps_data:
+                return None
                 
-                # Extract altitude if present
-                if 'GPSAltitude' in gps_data:
-                    altitude = float(gps_data['GPSAltitude'])
-                    gps_data['altitude_meters'] = altitude
+            # Convert to decimal degrees if coordinates are present
+            if 'GPSLatitude' in gps_data and 'GPSLongitude' in gps_data:
+                lat = self._convert_to_degrees(gps_data['GPSLatitude'])
+                lon = self._convert_to_degrees(gps_data['GPSLongitude'])
                 
-                return gps_data
+                # Apply direction
+                if gps_data.get('GPSLatitudeRef') == 'S':
+                    lat = -lat
+                if gps_data.get('GPSLongitudeRef') == 'W':
+                    lon = -lon
+                
+                gps_data['latitude_decimal'] = lat
+                gps_data['longitude_decimal'] = lon
+                gps_data['coordinates'] = f"{lat}, {lon}"
+            
+            # Extract altitude if present
+            if 'GPSAltitude' in gps_data:
+                altitude = float(gps_data['GPSAltitude'])
+                gps_data['altitude_meters'] = altitude
+            
+            return gps_data
         
         except Exception as e:
             return {'error': str(e)}

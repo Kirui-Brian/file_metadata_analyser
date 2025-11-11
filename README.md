@@ -150,6 +150,102 @@ Course Project/
 - TIFF (.tiff, .tif)
 - HEIF (.heif, .heic)
 
+## 📸 How to Get Images WITH GPS Data
+
+### Option 1: Take Photos with Your Phone Camera
+1. **Enable location services** for Camera app
+2. Take photos directly with camera (not through WhatsApp)
+3. Transfer using:
+   - USB cable (preserves metadata)
+   - Email as "Original" quality
+   - Cloud storage (original quality)
+
+### Option 2: Download Sample Images
+Use these free sources with GPS data:
+
+**Flickr** (Search "GPS" or "EXIF")
+- https://www.flickr.com/
+- Look for photos with map locations
+- Right-click → Save image
+
+**Sample EXIF Images:**
+- https://github.com/ianare/exif-samples
+- Download images with GPS tags
+
+**EXIF Test Images:**
+- http://owl.phy.queensu.ca/~phil/exiftool/sample_images.html
+
+### Option 3: Create Test Images
+Use a tool to embed GPS data into existing images:
+
+**ExifTool (Command Line):**
+```powershell
+# Install exiftool
+choco install exiftool
+
+# Add GPS to image
+exiftool -GPSLatitude="40.748817" -GPSLatitudeRef="N" -GPSLongitude="-73.985428" -GPSLongitudeRef="W" photo.jpg
+```
+
+**Python Script (Create test image):**
+```python
+from PIL import Image
+from PIL.ExifTags import TAGS, GPSTAGS
+import piexif
+
+# Create a simple image
+img = Image.new('RGB', (800, 600), color='blue')
+
+# Create GPS IFD
+gps_ifd = {
+    piexif.GPSIFD.GPSLatitudeRef: b'N',
+    piexif.GPSIFD.GPSLatitude: ((40, 1), (44, 1), (5577, 100)),  # 40.748817
+    piexif.GPSIFD.GPSLongitudeRef: b'W',
+    piexif.GPSIFD.GPSLongitude: ((73, 1), (59, 1), (1154, 100)),  # -73.985428
+}
+
+exif_dict = {"GPS": gps_ifd}
+exif_bytes = piexif.dump(exif_dict)
+
+img.save('test_with_gps.jpg', exif=exif_bytes)
+```
+
+### Option 4: Use Your Own Photos
+1. Find photos you took with your phone
+2. Make sure they were taken with location enabled
+3. Copy directly from phone (don't send via WhatsApp!)
+
+---
+
+## 🧪 Testing the Fixed GPS Extraction
+
+### Test 1: With a Real GPS Image
+```powershell
+python -c "from core.extractor import MetadataExtractor; e = MetadataExtractor('your_gps_image.jpg'); m = e.extract_all(); print('GPS:', m.get('gps_data'))"
+```
+
+Expected output:
+```python
+GPS: {
+    'latitude_decimal': 40.748817,
+    'longitude_decimal': -73.985428,
+    'coordinates': '40.748817, -73.985428',
+    'GPSLatitudeRef': 'N',
+    'GPSLongitudeRef': 'W',
+    ...
+}
+```
+
+### Test 2: With WhatsApp Image
+```powershell
+python -c "from core.extractor import MetadataExtractor; e = MetadataExtractor('samples/WhatsApp Image 2025-11-11 at 14.53.05_562eaa4c.jpg'); m = e.extract_all(); print('GPS:', m.get('gps_data'))"
+```
+
+Expected output:
+```python
+GPS: None
+```
+
 ### Documents
 - PDF (.pdf)
 - Microsoft Word (.docx, .doc)

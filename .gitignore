@@ -36,7 +36,6 @@ venv.bak/
 .DS_Store
 
 # MDs
-/FIXES_APPLIED.md
 /PRESENTATION.md
 /PROJECT_SUMMARY.md
 /QUICKSTART.md
@@ -46,6 +45,7 @@ venv.bak/
 /VISUAL_TIMESTAMP_GUIDE.md
 
 # Project specific
+output/*
 output/*.html
 output/*.json
 output/*.csv
@@ -58,6 +58,7 @@ output/*.kml
 *~
 
 # Sample files
+samples/*
 samples/*.jpg
 samples/*.jpeg
 samples/*.png

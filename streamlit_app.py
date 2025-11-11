@@ -60,15 +60,51 @@ st.markdown("""
     }
     .warning-box {
         background-color: #fff3cd;
+        color: #856404;
         padding: 1rem;
         border-radius: 5px;
         border-left: 4px solid #ffc107;
+        font-weight: 500;
     }
     .error-box {
         background-color: #f8d7da;
+        color: #721c24;
         padding: 1rem;
         border-radius: 5px;
         border-left: 4px solid #dc3545;
+        font-weight: 500;
+    }
+    .critical-box {
+        background-color: #dc3545;
+        color: #ffffff;
+        padding: 1rem;
+        border-radius: 5px;
+        border-left: 4px solid #a71d2a;
+        font-weight: 600;
+    }
+    .high-box {
+        background-color: #fd7e14;
+        color: #ffffff;
+        padding: 1rem;
+        border-radius: 5px;
+        border-left: 4px solid #dc6502;
+        font-weight: 600;
+    }
+    .medium-box {
+        background-color: #fff3cd;
+        color: #856404;
+        padding: 1rem;
+        border-radius: 5px;
+        border-left: 4px solid #ffc107;
+        font-weight: 500;
+    }
+    .low-box {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        padding: 1rem;
+        border-radius: 5px;
+        border-left: 4px solid #17a2b8;
+        font-weight: 500;
     }
     .info-box {
         background-color: #d1ecf1;
@@ -307,13 +343,21 @@ def display_file_result(result, show_exif, generate_map, show_hashes):
             if anomalies:
                 st.markdown("#### ⚠️ Anomalies Detected")
                 for anomaly in anomalies:
-                    severity = anomaly.get('severity', 'UNKNOWN')
+                    severity = anomaly.get('severity', 'UNKNOWN').upper()
                     description = anomaly.get('description', 'N/A')
                     significance = anomaly.get('forensic_significance', '')
                     
+                    # Choose appropriate box style based on severity
+                    box_class = {
+                        'CRITICAL': 'critical-box',
+                        'HIGH': 'high-box',
+                        'MEDIUM': 'medium-box',
+                        'LOW': 'low-box',
+                    }.get(severity, 'warning-box')
+                    
                     with st.container():
                         st.markdown(f"""
-                        <div class="warning-box">
+                        <div class="{box_class}">
                             <b>{severity}:</b> {description}<br>
                             <small><i>Significance: {significance}</i></small>
                         </div>
@@ -359,11 +403,23 @@ def display_file_result(result, show_exif, generate_map, show_hashes):
                 with st.spinner("Generating map..."):
                     mapper = GPSMapper()
                     map_file = tempfile.NamedTemporaryFile(delete=False, suffix='.html', mode='w')
+                    map_file.close()  # Close the file before GPSMapper writes to it
+                    
                     if mapper.create_map(gps_data, map_file.name):
                         with open(map_file.name, 'r', encoding='utf-8') as f:
                             map_html = f.read()
                         st.components.v1.html(map_html, height=400, scrolling=True)
-                        os.unlink(map_file.name)
+                        
+                        # Clean up temporary file with error handling
+                        try:
+                            os.unlink(map_file.name)
+                        except PermissionError:
+                            # File still in use, will be cleaned up by OS later
+                            pass
+        else:
+            # No GPS data found
+            if metadata.get('file_type') == 'image':
+                st.info("ℹ️ **No GPS Data Found** - This image does not contain location information. GPS data may have been removed or was never embedded (e.g., WhatsApp images have metadata stripped).")
         
         # EXIF Data
         if show_exif and 'exif_data' in metadata:
@@ -411,7 +467,8 @@ def display_file_result(result, show_exif, generate_map, show_hashes):
                 label="📄 Download JSON",
                 data=json_report,
                 file_name=f"{Path(filename).stem}_report.json",
-                mime="application/json"
+                mime="application/json",
+                key=f"json_{filename}"
             )
         
         with col2:
@@ -420,7 +477,8 @@ def display_file_result(result, show_exif, generate_map, show_hashes):
                 label="📊 Download CSV",
                 data=csv_report,
                 file_name=f"{Path(filename).stem}_report.csv",
-                mime="text/csv"
+                mime="text/csv",
+                key=f"csv_{filename}"
             )
         
         with col3:
@@ -429,7 +487,8 @@ def display_file_result(result, show_exif, generate_map, show_hashes):
                 label="📝 Download Text",
                 data=text_report,
                 file_name=f"{Path(filename).stem}_report.txt",
-                mime="text/plain"
+                mime="text/plain",
+                key=f"text_{filename}"
             )
 
 
@@ -549,6 +608,7 @@ def sanitize_mode():
                             file_name=clean_filename,
                             mime=uploaded_file.type,
                             type="primary",
+                            key=f"download_cleaned_{uploaded_file.name}",
                             use_container_width=True
                         )
                         
