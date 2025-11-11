@@ -381,24 +381,30 @@ class MetadataExtractor:
     def _extract_xlsx_metadata(self) -> Dict[str, Any]:
         """Extract metadata from XLSX files."""
         try:
-            wb = openpyxl.load_workbook(self.file_path)
+            wb = openpyxl.load_workbook(self.file_path, read_only=True, data_only=True)
             props = wb.properties
             
-            return {
-                'creator': props.creator,
-                'title': props.title,
-                'subject': props.subject,
-                'description': props.description,
-                'keywords': props.keywords,
-                'category': props.category,
-                'created': props.created.isoformat() if props.created else None,
-                'modified': props.modified.isoformat() if props.modified else None,
-                'last_modified_by': props.lastModifiedBy,
+            # Get creator/author (same field in Excel)
+            creator_value = props.creator or 'N/A'
+            
+            metadata = {
+                'author': creator_value,  # Standard field name for consistency
+                'creator': creator_value,  # Keep original field name too
+                'title': props.title or 'N/A',
+                'subject': props.subject or 'N/A',
+                'description': props.description or 'N/A',
+                'keywords': props.keywords or 'N/A',
+                'category': props.category or 'N/A',
+                'created': props.created.isoformat() if props.created else 'N/A',
+                'modified': props.modified.isoformat() if props.modified else 'N/A',
+                'last_modified_by': props.lastModifiedBy or 'N/A',
                 'sheet_count': len(wb.sheetnames),
-                'sheet_names': wb.sheetnames,
+                'sheet_names': ', '.join(wb.sheetnames),
             }
+            wb.close()
+            return metadata
         except Exception as e:
-            return {'error': str(e)}
+            return {'error': f'Failed to extract XLSX metadata: {str(e)}'}
     
     def _extract_pptx_metadata(self) -> Dict[str, Any]:
         """Extract metadata from PPTX files."""
@@ -406,21 +412,22 @@ class MetadataExtractor:
             prs = Presentation(self.file_path)
             core_props = prs.core_properties
             
-            return {
-                'author': core_props.author,
-                'title': core_props.title,
-                'subject': core_props.subject,
-                'keywords': core_props.keywords,
-                'comments': core_props.comments,
-                'created': core_props.created.isoformat() if core_props.created else None,
-                'modified': core_props.modified.isoformat() if core_props.modified else None,
-                'last_modified_by': core_props.last_modified_by,
-                'revision': core_props.revision,
-                'category': core_props.category,
+            metadata = {
+                'author': core_props.author or 'N/A',
+                'title': core_props.title or 'N/A',
+                'subject': core_props.subject or 'N/A',
+                'keywords': core_props.keywords or 'N/A',
+                'comments': core_props.comments or 'N/A',
+                'created': core_props.created.isoformat() if core_props.created else 'N/A',
+                'modified': core_props.modified.isoformat() if core_props.modified else 'N/A',
+                'last_modified_by': core_props.last_modified_by or 'N/A',
+                'revision': str(core_props.revision) if core_props.revision else 'N/A',
+                'category': core_props.category or 'N/A',
                 'slide_count': len(prs.slides),
             }
+            return metadata
         except Exception as e:
-            return {'error': str(e)}
+            return {'error': f'Failed to extract PPTX metadata: {str(e)}'}
     
     def _extract_media_metadata(self) -> Dict[str, Any]:
         """Extract metadata from media files (audio/video)."""

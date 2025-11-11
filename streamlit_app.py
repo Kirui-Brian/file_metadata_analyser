@@ -320,14 +320,15 @@ def display_file_result(result, show_exif, generate_map, show_hashes):
         if analysis:
             risk_level = analysis.get('risk_level', 'UNKNOWN')
             risk_colors = {
-                'LOW': 'success',
-                'MEDIUM': 'warning', 
-                'HIGH': 'error',
-                'CRITICAL': 'error'
+                'LOW': '🟢',
+                'MEDIUM': '🟡', 
+                'HIGH': '🟠',
+                'CRITICAL': '🔴'
             }
             
             st.markdown("### 🛡️ Risk Assessment")
-            st.markdown(f"**Risk Level:** :{risk_colors.get(risk_level, 'info')}[{risk_level}]")
+            risk_icon = risk_colors.get(risk_level, '⚪')
+            st.markdown(f"**Risk Level:** {risk_icon} **{risk_level}**")
             
             summary = analysis.get('summary', {})
             col1, col2, col3 = st.columns(3)
@@ -443,7 +444,10 @@ def display_file_result(result, show_exif, generate_map, show_hashes):
         # Document Metadata
         if 'document_metadata' in metadata:
             doc_meta = metadata['document_metadata']
-            if 'error' not in doc_meta and doc_meta:
+            if 'error' in doc_meta:
+                st.error(f"⚠️ **Document Metadata Error:** {doc_meta['error']}")
+                st.info("💡 This file format may not be fully supported. Supported formats: PDF, DOCX, XLSX, PPTX")
+            elif doc_meta:
                 with st.expander("📝 Document Properties"):
                     for key, value in doc_meta.items():
                         if value and key != 'first_page_text_sample':
@@ -507,7 +511,7 @@ def sanitize_mode():
     
     uploaded_file = st.file_uploader(
         "Choose a file to sanitize",
-        type=['jpg', 'jpeg', 'png', 'pdf', 'docx'],
+        type=['jpg', 'jpeg', 'png', 'pdf', 'docx', 'xlsx', 'pptx'],
         help="Upload a file to remove its metadata"
     )
     
@@ -532,7 +536,8 @@ def sanitize_mode():
                 # Check what metadata exists
                 has_gps = bool(metadata.get('gps_data') and 'latitude_decimal' in metadata.get('gps_data', {}))
                 has_exif = bool(metadata.get('exif_data'))
-                has_author = bool(metadata.get('document_metadata', {}).get('author'))
+                author_value = metadata.get('document_metadata', {}).get('author')
+                has_author = bool(author_value and author_value != 'N/A')
                 
                 col1, col2, col3 = st.columns(3)
                 with col1:
@@ -583,7 +588,8 @@ def sanitize_mode():
                                            'latitude_decimal' in cleaned_metadata.get('gps_data', {}))
                         has_exif_after = bool(cleaned_metadata.get('exif_data') and 
                                             len(cleaned_metadata.get('exif_data', {})) > 1)
-                        has_author_after = bool(cleaned_metadata.get('document_metadata', {}).get('author'))
+                        author_value_after = cleaned_metadata.get('document_metadata', {}).get('author')
+                        has_author_after = bool(author_value_after and author_value_after != 'N/A')
                         
                         st.markdown("### ✅ Verification")
                         col1, col2, col3 = st.columns(3)

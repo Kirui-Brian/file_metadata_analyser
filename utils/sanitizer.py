@@ -28,6 +28,18 @@ try:
 except ImportError:
     DOCX_AVAILABLE = False
 
+try:
+    from openpyxl import load_workbook
+    XLSX_AVAILABLE = True
+except ImportError:
+    XLSX_AVAILABLE = False
+
+try:
+    from pptx import Presentation
+    PPTX_AVAILABLE = True
+except ImportError:
+    PPTX_AVAILABLE = False
+
 
 class MetadataSanitizer:
     """
@@ -71,6 +83,10 @@ class MetadataSanitizer:
                 return self._sanitize_pdf(input_path, output_path)
             elif ext == '.docx':
                 return self._sanitize_docx(input_path, output_path)
+            elif ext == '.xlsx':
+                return self._sanitize_xlsx(input_path, output_path)
+            elif ext == '.pptx':
+                return self._sanitize_pptx(input_path, output_path)
             else:
                 print(f"Warning: Sanitization not supported for {ext} files")
                 # Just copy the file
@@ -203,6 +219,71 @@ class MetadataSanitizer:
         
         except Exception as e:
             print(f"Error removing DOCX metadata: {str(e)}")
+            return False
+    
+    def _sanitize_xlsx(self, input_path: str, output_path: str) -> bool:
+        """Remove metadata from XLSX files."""
+        if not XLSX_AVAILABLE:
+            print("Error: openpyxl not available")
+            return False
+        
+        try:
+            # Load workbook
+            wb = load_workbook(input_path)
+            
+            # Clear core properties
+            wb.properties.creator = ''
+            wb.properties.lastModifiedBy = ''
+            wb.properties.title = ''
+            wb.properties.subject = ''
+            wb.properties.description = ''
+            wb.properties.keywords = ''
+            wb.properties.category = ''
+            wb.properties.comments = ''
+            wb.properties.created = datetime.now()
+            wb.properties.modified = datetime.now()
+            
+            # Save cleaned workbook
+            wb.save(output_path)
+            wb.close()
+            
+            print(f"✓ XLSX metadata removed: {output_path}")
+            return True
+        
+        except Exception as e:
+            print(f"Error removing XLSX metadata: {str(e)}")
+            return False
+    
+    def _sanitize_pptx(self, input_path: str, output_path: str) -> bool:
+        """Remove metadata from PPTX files."""
+        if not PPTX_AVAILABLE:
+            print("Error: python-pptx not available")
+            return False
+        
+        try:
+            # Load presentation
+            prs = Presentation(input_path)
+            
+            # Clear core properties
+            core_props = prs.core_properties
+            core_props.author = ''
+            core_props.title = ''
+            core_props.subject = ''
+            core_props.keywords = ''
+            core_props.comments = ''
+            core_props.last_modified_by = ''
+            core_props.category = ''
+            core_props.created = datetime.now()
+            core_props.modified = datetime.now()
+            
+            # Save cleaned presentation
+            prs.save(output_path)
+            
+            print(f"✓ PPTX metadata removed: {output_path}")
+            return True
+        
+        except Exception as e:
+            print(f"Error removing PPTX metadata: {str(e)}")
             return False
     
     def sanitize_directory(self, directory: str, output_directory: Optional[str] = None) -> dict:
