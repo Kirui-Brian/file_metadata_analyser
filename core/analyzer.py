@@ -1,5 +1,5 @@
 """
-Metadata Analyser Module
+Metadata Analyzer Module
 Analyzes extracted metadata for anomalies, inconsistencies, and forensic indicators.
 """
 
@@ -8,14 +8,14 @@ from datetime import datetime, timedelta
 import re
 
 
-class MetadataAnalyser:
+class MetadataAnalyzer:
     """
     Analyzes metadata for forensic significance, anomalies, and privacy concerns.
     """
     
     def __init__(self, metadata: Dict[str, Any]):
         """
-        Initialize the Analyser with extracted metadata.
+        Initialize the Analyzer with extracted metadata.
         
         Args:
             metadata (Dict): Metadata dictionary from MetadataExtractor

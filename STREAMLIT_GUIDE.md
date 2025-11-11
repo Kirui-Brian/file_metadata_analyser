@@ -1,8 +1,8 @@
-# Streamlit GUI Guide - File Metadata Analyser
+# Streamlit GUI Guide - File Metadata Analyzer
 
 ## 🎨 Web Interface Overview
 
-The File Metadata Analyser now includes a **beautiful, user-friendly web interface** built with Streamlit!
+The File Metadata Analyzer now includes a **beautiful, user-friendly web interface** built with Streamlit!
 
 ## 🚀 Quick Start
 
@@ -175,6 +175,7 @@ Educational information about:
 ## 📱 Browser Compatibility
 
 Works on all modern browsers:
+- ✅ Brave
 - ✅ Chrome (recommended)
 - ✅ Firefox
 - ✅ Edge
@@ -231,16 +232,16 @@ Deploy to Streamlit Cloud for public access:
 
 ## 🔍 Comparison: CLI vs GUI
 
-| Feature | CLI | GUI |
-|---------|-----|-----|
-| **Ease of Use** | Requires commands | Point and click |
-| **Visual Appeal** | Text-based | Colorful, modern |
-| **Learning Curve** | Steeper | Gentle |
-| **Batch Processing** | Fast with scripts | Upload multiple |
-| **Presentation** | Technical | Professional |
-| **Reports** | File-based | Download buttons |
-| **Maps** | Separate HTML | Embedded |
-| **Best For** | Scripts, automation | Demos, exploration |
+| Feature               | CLI                  | GUI                |
+|-----------------------|----------------------|--------------------|
+| **Ease of Use**       | Requires commands    | Point and click    |
+| **Visual Appeal**     | Text-based           | Colorful, modern   |
+| **Learning Curve**    | Steeper              | Gentle             |
+| **Batch Processing**  | Fast with scripts    | Upload multiple    |
+| **Presentation**      | Technical            | Professional       |
+| **Reports**           | File-based           | Download buttons   |
+| **Maps**              | Separate HTML        | Embedded           |
+| **Best For**          | Scripts, automation  | Demos, exploration |
 
 **Both interfaces are valuable!**
 - Use **CLI** for automation and scripting
@@ -305,7 +306,7 @@ The `streamlit_app.py` file can be customized:
 
 **Open terminal in project directory:**
 ```powershell
-cd "b:\MSc\Module IV\MST 8407 Forensic Data Acquisition and Analysis, DF - Mr Nelson Mutua\Course Project"
+cd "Course Project"
 ```
 
 **Launch the web interface:**
@@ -340,7 +341,6 @@ Press `C` in the browser or click "Clear cache" in settings
 **Enjoy the modern web interface! 🎨✨**
 
 Perfect for:
-- 🎓 Class presentations
 - 🔍 Quick analysis
 - 🧹 Metadata cleaning
 - 📊 Professional reports

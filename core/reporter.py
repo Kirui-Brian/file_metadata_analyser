@@ -23,7 +23,7 @@ class MetadataReporter:
         
         Args:
             metadata (Dict): Raw metadata from MetadataExtractor
-            analysis (Dict, optional): Analysis results from MetadataAnalyser
+            analysis (Dict, optional): Analysis results from MetadataAnalyzer
         """
         self.metadata = metadata
         self.analysis = analysis
@@ -120,9 +120,27 @@ class MetadataReporter:
         # Timestamps
         lines.append("TIMESTAMPS")
         lines.append("-" * 80)
-        lines.append(f"  Created:         {file_info.get('created', 'N/A')}")
-        lines.append(f"  Modified:        {file_info.get('modified', 'N/A')}")
-        lines.append(f"  Accessed:        {file_info.get('accessed', 'N/A')}")
+        
+        # Check for EXIF dates (original dates)
+        exif_data = self.metadata.get('exif_data', {})
+        parsed_dates = exif_data.get('parsed_dates', {})
+        
+        if parsed_dates:
+            lines.append("  ORIGINAL DATES (from EXIF metadata):")
+            for desc, date_val in parsed_dates.items():
+                lines.append(f"    {desc}: {date_val}")
+            lines.append("")
+            lines.append("  FILE SYSTEM DATES (when file was copied/moved to this location):")
+            lines.append(f"    Created on disk:  {file_info.get('created', 'N/A')}")
+            lines.append(f"    Modified on disk: {file_info.get('modified', 'N/A')}")
+            lines.append(f"    Last accessed:    {file_info.get('accessed', 'N/A')}")
+        else:
+            lines.append("  FILE SYSTEM DATES:")
+            lines.append(f"  Created:         {file_info.get('created', 'N/A')}")
+            lines.append(f"  Modified:        {file_info.get('modified', 'N/A')}")
+            lines.append(f"  Accessed:        {file_info.get('accessed', 'N/A')}")
+            if file_info.get('note'):
+                lines.append(f"  Note: {file_info.get('note')}")
         lines.append("")
         
         # Hash Values

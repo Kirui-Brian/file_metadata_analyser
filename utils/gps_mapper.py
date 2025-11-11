@@ -30,7 +30,7 @@ class GPSMapper:
         """Initialize the GPS mapper."""
         self.geocoder = None
         if GEOPY_AVAILABLE:
-            self.geocoder = Nominatim(user_agent="file_metadata_Analyser")
+            self.geocoder = Nominatim(user_agent="file_metadata_Analyzer")
     
     def create_map(self, gps_data: Dict[str, Any], output_path: str) -> bool:
         """

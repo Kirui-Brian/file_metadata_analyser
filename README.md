@@ -1,8 +1,8 @@
-# File Metadata Analyser
+# File Metadata Analyzer
 
 ## Project Overview
 
-**File Metadata Analyser** is a comprehensive Python-based digital forensics tool designed to extract, analyze, and manipulate metadata from various file types including images, documents, videos, and audio files. This tool demonstrates the critical role of metadata in digital investigations and highlights how metadata can be manipulated or erased to conceal evidence.
+**File Metadata Analyzer** is a comprehensive Python-based digital forensics tool designed to extract, analyze, and manipulate metadata from various file types including images, documents, videos, and audio files. This tool demonstrates the critical role of metadata in digital investigations and highlights how metadata can be manipulated or erased to conceal evidence.
 
 ## Objectives
 
@@ -35,7 +35,7 @@
 
 1. **Clone or download the project**:
    ```bash
-   cd "b:\MSc\Module IV\MST 8407 Forensic Data Acquisition and Analysis, DF - Mr Nelson Mutua\Course Project"
+   cd "Course Project"
    ```
 
 2. **Install required dependencies**:
@@ -45,7 +45,7 @@
 
 3. **Verify installation**:
    ```bash
-   python metadata_Analyser.py --help
+   python metadata_analyzer.py --help
    ```
 
 ## Usage
@@ -53,48 +53,48 @@
 ### Basic Command Structure
 
 ```bash
-python metadata_Analyser.py --file <path_to_file> [options]
+python metadata_analyzer.py --file <path_to_file> [options]
 ```
 
 ### Examples
 
 #### 1. Extract metadata from an image
 ```bash
-python metadata_Analyser.py --file samples/image.jpg --report json
+python metadata_analyzer.py --file samples/image.jpg --report json
 ```
 
 #### 2. Analyze a PDF document
 ```bash
-python metadata_Analyser.py --file samples/document.pdf --report text
+python metadata_analyzer.py --file samples/document.pdf --report text
 ```
 
 #### 3. Extract metadata from multiple files
 ```bash
-python metadata_Analyser.py --directory samples/ --report csv
+python metadata_analyzer.py --directory samples/ --report csv
 ```
 
 #### 4. Remove metadata from a file
 ```bash
-python metadata_Analyser.py --file samples/image.jpg --erase --output cleaned_image.jpg
+python metadata_analyzer.py --file samples/image.jpg --erase --output cleaned_image.jpg
 ```
 
 #### 5. Generate GPS map from image metadata
 ```bash
-python metadata_Analyser.py --file samples/photo.jpg --map
+python metadata_analyzer.py --file samples/photo.jpg --map
 ```
 
 ### Command-Line Options
 
-| Option | Description |
-|--------|-------------|
-| `--file PATH` | Path to the file to analyze |
-| `--directory PATH` | Analyze all files in a directory |
-| `--report FORMAT` | Output report format: `json`, `csv`, or `text` (default: text) |
-| `--output PATH` | Output file path for reports or cleaned files |
-| `--erase` | Remove metadata from the file |
-| `--map` | Generate GPS map for images with location data |
-| `--analyze` | Perform deep analysis for anomalies |
-| `--verbose` | Enable verbose output |
+| Option               | Description                                                   |
+|--------------------|-----------------------------------------------------------------|
+| `--file PATH`      | Path to the file to analyze                                     |
+| `--directory PATH` | Analyze all files in a directory                                |
+| `--report FORMAT`  | Output report format: `json`, `csv`, or `text` (default: text)  |
+| `--output PATH`    | Output file path for reports or cleaned files                   |
+| `--erase`          | Remove metadata from the file                                   |
+| `--map`            | Generate GPS map for images with location data                  |
+| `--analyze`        | Perform deep analysis for anomalies                             |
+| `--verbose`        | Enable verbose output                                           |
 
 ## Running the Demo
 
@@ -117,11 +117,11 @@ This will:
 ```
 Course Project/
 │
-├── metadata_Analyser.py       # Main CLI application
+├── metadata_analyzer.py       # Main CLI application
 ├── core/
 │   ├── __init__.py
 │   ├── extractor.py           # Metadata extraction classes
-│   ├── Analyser.py            # Metadata analysis engine
+│   ├── analyzer.py            # Metadata analysis engine
 │   └── reporter.py            # Report generation
 │
 ├── utils/
@@ -139,8 +139,7 @@ Course Project/
 │
 ├── demo.py                    # Demonstration script
 ├── requirements.txt           # Python dependencies
-├── README.md                  # This file
-└── PRESENTATION.md            # Presentation talking points
+└── README.md                  # This file
 ```
 
 ## Supported File Types
@@ -274,8 +273,8 @@ This project is created for educational purposes as part of MST 8407 Forensic Da
 
 ## Author
 
-**Course**: MST 8407 Forensic Data Acquisition and Analysis, DF  
-**Instructor**: Mr. Nelson Mutua  
+**Course**: MST 8407 Forensic Data Acquisition and Analysis, FDFAA 
+**Lecturer**: Mr. Nelson Mutua  
 **Date**: November 2025
 
 ## Troubleshooting
@@ -294,7 +293,7 @@ Reinstall requirements: `pip install -r requirements.txt --upgrade`
 
 ## Contact & Support
 
-For questions or issues, please refer to the course materials or consult the instructor.
+For questions or issues, please refer to the course materials or consult the lecturer.
 
 ---
 

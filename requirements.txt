@@ -1,4 +1,4 @@
-# File Metadata Analyser - Requirements
+# File Metadata Analyzer - Requirements
 # Python 3.10+
 
 # Image Processing and EXIF
@@ -31,6 +31,9 @@ tqdm>=4.66.0  # Progress bars
 # Utilities
 python-dateutil>=2.8.2
 tzlocal>=5.0.0
+
+# Reportlab
+reportlab>=4.4.4
 
 # GUI Interface
 streamlit>=1.28.0

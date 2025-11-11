@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Sample File Creator
-Creates basic sample files for testing the File Metadata Analyser.
+Creates basic sample files for testing the File Metadata Analyzer.
 """
 
 import os
@@ -50,7 +50,7 @@ def create_sample_pdf():
         
         # Add content
         c.setTitle("Sample Test Document")
-        c.setAuthor("File Metadata Analyser Test Suite")
+        c.setAuthor("File Metadata Analyzer Test Suite")
         c.setSubject("Digital Forensics Testing")
         
         c.drawString(100, 750, "Sample Test Document")
@@ -58,10 +58,10 @@ def create_sample_pdf():
         c.drawString(100, 700, f"Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         c.drawString(100, 680, "")
         c.drawString(100, 660, "This is a test PDF document created for demonstrating")
-        c.drawString(100, 640, "the File Metadata Analyser tool.")
+        c.drawString(100, 640, "the File Metadata Analyzer tool.")
         c.drawString(100, 620, "")
         c.drawString(100, 600, "Metadata Information:")
-        c.drawString(100, 580, "- Author: File Metadata Analyser Test Suite")
+        c.drawString(100, 580, "- Author: File Metadata Analyzer Test Suite")
         c.drawString(100, 560, "- Subject: Digital Forensics Testing")
         c.drawString(100, 540, "- Creation Date: Embedded in file")
         
@@ -87,7 +87,7 @@ def create_sample_docx():
         
         # Set metadata
         core_props = doc.core_properties
-        core_props.author = "File Metadata Analyser Test Suite"
+        core_props.author = "File Metadata Analyzer Test Suite"
         core_props.title = "Sample Test Document"
         core_props.subject = "Digital Forensics Testing"
         core_props.keywords = "metadata, forensics, testing"
@@ -101,12 +101,12 @@ def create_sample_docx():
         doc.add_heading('Purpose', 1)
         doc.add_paragraph(
             'This is a test Word document created for demonstrating the '
-            'File Metadata Analyser tool. It contains various metadata fields '
+            'File Metadata Analyzer tool. It contains various metadata fields '
             'including author, title, subject, keywords, and comments.'
         )
         doc.add_paragraph('')
         doc.add_heading('Metadata Contents', 1)
-        doc.add_paragraph('• Author: File Metadata Analyser Test Suite')
+        doc.add_paragraph('• Author: File Metadata Analyzer Test Suite')
         doc.add_paragraph('• Title: Sample Test Document')
         doc.add_paragraph('• Subject: Digital Forensics Testing')
         doc.add_paragraph('• Keywords: metadata, forensics, testing')
@@ -134,7 +134,7 @@ def create_sample_text():
 {'='*50}
 Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
-This is a simple text file for testing the File Metadata Analyser.
+This is a simple text file for testing the File Metadata Analyzer.
 
 Text files have minimal embedded metadata, but still contain:
 - File system metadata (creation time, modification time, access time)
@@ -158,7 +158,7 @@ def create_readme():
     """Create README with instructions."""
     content = """# Test Sample Files
 
-This directory contains automatically generated sample files for testing the File Metadata Analyser.
+This directory contains automatically generated sample files for testing the File Metadata Analyzer.
 
 ## Files Created
 
@@ -182,11 +182,11 @@ To test GPS extraction, you need to:
 
 ## Testing
 
-Run the Analyser:
+Run the Analyzer:
 ```bash
-python metadata_Analyser.py --file samples/test_image.jpg --analyze
-python metadata_Analyser.py --file samples/test_document.pdf --report json
-python metadata_Analyser.py --directory samples/ --analyze
+python metadata_analyzer.py --file samples/test_image.jpg --analyze
+python metadata_analyzer.py --file samples/test_document.pdf --report json
+python metadata_analyzer.py --directory samples/ --analyze
 ```
 
 Run the demo:
@@ -209,7 +209,7 @@ python demo.py
 def main():
     """Main execution."""
     print("=" * 60)
-    print("Sample File Creator for File Metadata Analyser")
+    print("Sample File Creator for File Metadata Analyzer")
     print("=" * 60)
     print()
     
@@ -241,7 +241,7 @@ def main():
     print("Next steps:")
     print("1. Review the created files in the samples/ directory")
     print("2. Add a photo with GPS data from your smartphone (optional)")
-    print("3. Run: python metadata_Analyser.py --file samples/test_image.jpg")
+    print("3. Run: python metadata_analyzer.py --file samples/test_image.jpg")
     print("4. Or run the full demo: python demo.py")
     print()
 

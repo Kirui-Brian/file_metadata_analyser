@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Demo Script for File Metadata Analyser
-Demonstrates the capabilities of the metadata Analyser tool for class presentation.
+Demo Script for File Metadata Analyzer
+Demonstrates the capabilities of the metadata Analyzer tool for class presentation.
 
 This script:
 1. Analyzes sample files from different categories
@@ -20,7 +20,7 @@ from datetime import datetime
 sys.path.insert(0, str(Path(__file__).parent))
 
 from core.extractor import MetadataExtractor
-from core.Analyser import MetadataAnalyser
+from core.analyzer import MetadataAnalyzer
 from core.reporter import MetadataReporter
 from utils.gps_mapper import GPSMapper
 from utils.sanitizer import MetadataSanitizer
@@ -105,10 +105,10 @@ def print_stat(label, value):
 
 def demo_intro():
     """Print demo introduction."""
-    print_section_header("FILE METADATA Analyser - LIVE DEMONSTRATION")
+    print_section_header("FILE METADATA Analyzer - DEMONSTRATION")
     
     print("""
-This demonstration showcases the File Metadata Analyser tool, which:
+This demonstration showcases the File Metadata Analyzer tool, which:
 
 1. Extracts comprehensive metadata from multiple file types
 2. Analyzes metadata for forensic significance and anomalies
@@ -213,8 +213,8 @@ def demo_analysis(results):
         
         try:
             # Analyze metadata
-            Analyser = MetadataAnalyser(metadata)
-            analysis = Analyser.analyze()
+            analyzer = MetadataAnalyzer(metadata)
+            analysis = analyzer.analyze()
             
             analysis_time = time.time() - start_time
             
@@ -240,7 +240,7 @@ def demo_analysis(results):
                     print_info(f"• [{concern['severity']}] {concern['description']}", 1)
             
             # Get recommendations
-            recommendations = Analyser.get_recommendations()
+            recommendations = analyzer.get_recommendations()
             if recommendations:
                 print_info("\nRecommendations:", 0)
                 for rec in recommendations[:3]:
@@ -503,7 +503,7 @@ def demo_conclusion():
     print_section_header("DEMONSTRATION COMPLETE")
     
     print("""
-The File Metadata Analyser has demonstrated:
+The File Metadata Analyzer has demonstrated:
 
 ✓ Comprehensive metadata extraction from multiple file formats
 ✓ Forensic analysis identifying anomalies and privacy concerns
@@ -532,11 +532,10 @@ ETHICAL CONSIDERATIONS:
 • Document chain of custody
 • Follow legal and ethical guidelines
 
-Thank you for attending this demonstration!
+Thank you for following my demonstration!
 """)
     
     print_info("All reports and maps have been saved to the 'output' directory")
-    print_info("You can review the generated files for your presentation\n")
 
 
 def main():

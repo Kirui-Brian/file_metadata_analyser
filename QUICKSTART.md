@@ -1,10 +1,10 @@
-# Quick Start Guide - File Metadata Analyser
+# Quick Start Guide - File Metadata Analyzer
 
 ## Installation
 
 ### Step 1: Navigate to Project Directory
 ```powershell
-cd "b:\MSc\Module IV\MST 8407 Forensic Data Acquisition and Analysis, DF - Mr Nelson Mutua\Course Project"
+cd "Course Project"
 ```
 
 ### Step 2: Install Dependencies
@@ -41,31 +41,31 @@ This creates basic test files in the `samples/` directory.
 ### Basic Usage - Single File Analysis
 ```powershell
 # Analyze an image
-python metadata_Analyser.py --file samples/photo.jpg
+python metadata_analyzer.py --file samples/photo.jpg
 
 # Analyze a PDF document
-python metadata_Analyser.py --file samples/document.pdf
+python metadata_analyzer.py --file samples/document.pdf
 
 # Analyze with detailed forensic analysis
-python metadata_Analyser.py --file samples/photo.jpg --analyze
+python metadata_analyzer.py --file samples/photo.jpg --analyze
 ```
 
 ### Generate Reports
 ```powershell
 # JSON report
-python metadata_Analyser.py --file samples/photo.jpg --report json --output report.json
+python metadata_analyzer.py --file samples/photo.jpg --report json --output report.json
 
 # CSV report
-python metadata_Analyser.py --file samples/photo.jpg --report csv --output report.csv
+python metadata_analyzer.py --file samples/photo.jpg --report csv --output report.csv
 
 # Text report (saved to file)
-python metadata_Analyser.py --file samples/photo.jpg --report text --output report.txt
+python metadata_analyzer.py --file samples/photo.jpg --report text --output report.txt
 ```
 
 ### GPS Mapping
 ```powershell
 # Generate GPS map from image with location data
-python metadata_Analyser.py --file samples/photo.jpg --map
+python metadata_analyzer.py --file samples/photo.jpg --map
 
 # This creates an HTML file - open it in your browser to see the map
 ```
@@ -73,13 +73,13 @@ python metadata_Analyser.py --file samples/photo.jpg --map
 ### Batch Processing
 ```powershell
 # Analyze all files in a directory
-python metadata_Analyser.py --directory samples/ --analyze --report json
+python metadata_analyzer.py --directory samples/ --analyze --report json
 ```
 
 ### Metadata Removal
 ```powershell
 # Remove metadata from a file
-python metadata_Analyser.py --file samples/photo.jpg --erase --output cleaned_photo.jpg
+python metadata_analyzer.py --file samples/photo.jpg --erase --output cleaned_photo.jpg
 
 # The original file is backed up automatically
 ```
@@ -134,34 +134,34 @@ All reports are saved to the `output/` directory:
 
 ### 1. Verify Image Location
 ```powershell
-python metadata_Analyser.py --file photo.jpg --map
+python metadata_analyzer.py --file photo.jpg --map
 ```
 Opens a map showing where the photo was taken.
 
 ### 2. Check Document Author
 ```powershell
-python metadata_Analyser.py --file document.pdf --analyze
+python metadata_analyzer.py --file document.pdf --analyze
 ```
 Shows author, organization, and revision information.
 
 ### 3. Timeline Analysis
 ```powershell
-python metadata_Analyser.py --directory evidence/ --report csv
+python metadata_analyzer.py --directory evidence/ --report csv
 ```
 Creates a CSV with timestamps for timeline reconstruction.
 
 ### 4. Privacy Check Before Sharing
 ```powershell
 # Check what metadata exists
-python metadata_Analyser.py --file myfile.jpg --analyze
+python metadata_analyzer.py --file myfile.jpg --analyze
 
 # Remove sensitive metadata
-python metadata_Analyser.py --file myfile.jpg --erase --output safe_file.jpg
+python metadata_analyzer.py --file myfile.jpg --erase --output safe_file.jpg
 ```
 
 ### 5. Batch Analysis for Investigation
 ```powershell
-python metadata_Analyser.py --directory case_files/ --analyze --report json --output case_report.json
+python metadata_analyzer.py --directory case_files/ --analyze --report json --output case_report.json
 ```
 
 ## Troubleshooting
@@ -217,12 +217,12 @@ python metadata_Analyser.py --directory case_files/ --analyze --report json --ou
 
 ### View Help
 ```powershell
-python metadata_Analyser.py --help
+python metadata_analyzer.py --help
 ```
 
 ### Verbose Mode
 ```powershell
-python metadata_Analyser.py --file samples/photo.jpg --verbose
+python metadata_analyzer.py --file samples/photo.jpg --verbose
 ```
 Shows detailed error messages and stack traces.
 
@@ -230,13 +230,13 @@ Shows detailed error messages and stack traces.
 
 ```
 Course Project/
-├── metadata_Analyser.py     # Main CLI application
+├── metadata_analyzer.py     # Main CLI application
 ├── demo.py                   # Interactive demonstration
 ├── create_samples.py         # Sample file generator
 │
 ├── core/                     # Core modules
 │   ├── extractor.py         # Metadata extraction
-│   ├── Analyser.py          # Forensic analysis
+│   ├── analyzer.py          # Forensic analysis
 │   └── reporter.py          # Report generation
 │
 ├── utils/                    # Utility modules
@@ -249,8 +249,7 @@ Course Project/
 │
 ├── requirements.txt          # Dependencies
 ├── README.md                # Full documentation
-├── QUICKSTART.md            # This file
-└── PRESENTATION.md          # Presentation guide
+└── QUICKSTART.md            # This file
 ```
 
 ## Next Steps
@@ -261,13 +260,10 @@ Course Project/
 4. ✅ Try different report formats
 5. ✅ Run the demo script
 6. ✅ Review generated reports
-7. ✅ Prepare for presentation
 
 ---
 
 **Ready to begin!** Start with a simple command:
 ```powershell
-python metadata_Analyser.py --file samples/test_image.jpg --analyze
+python metadata_analyzer.py --file samples/test_image.jpg --analyze
 ```
-
-Good luck with your project! 🎓

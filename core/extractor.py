@@ -121,6 +121,7 @@ class MetadataExtractor:
             'accessed': datetime.fromtimestamp(stat.st_atime).isoformat(),
             'md5_hash': self._calculate_hash('md5'),
             'sha256_hash': self._calculate_hash('sha256'),
+            'note': 'File system dates may differ from original dates if file was copied/moved'
         }
     
     def _calculate_hash(self, algorithm: str = 'md5') -> str:
@@ -183,10 +184,46 @@ class MetadataExtractor:
                     if tag not in ['JPEGThumbnail', 'TIFFThumbnail']:
                         exif_data[tag] = str(value)
             
+            # Extract and parse original dates if present
+            if exif_data:
+                original_dates = self._parse_exif_dates(exif_data)
+                if original_dates:
+                    exif_data['parsed_dates'] = original_dates
+            
             return exif_data if exif_data else {'info': 'No EXIF data found'}
         
         except Exception as e:
             return {'error': str(e)}
+    
+    def _parse_exif_dates(self, exif_data: Dict[str, Any]) -> Dict[str, str]:
+        """Parse and extract date fields from EXIF data."""
+        dates = {}
+        
+        # Common EXIF date fields
+        date_fields = {
+            'DateTime': 'File Change Date',
+            'DateTimeOriginal': 'Original Date (when photo was taken)',
+            'DateTimeDigitized': 'Digitized Date (when photo was saved)',
+            'EXIF DateTimeOriginal': 'Original Date (when photo was taken)',
+            'EXIF DateTimeDigitized': 'Digitized Date (when photo was saved)',
+            'Image DateTime': 'Image Date',
+        }
+        
+        for exif_key, description in date_fields.items():
+            if exif_key in exif_data:
+                try:
+                    date_str = str(exif_data[exif_key])
+                    # Try to parse EXIF date format: YYYY:MM:DD HH:MM:SS
+                    if ':' in date_str:
+                        # Convert EXIF format to ISO format
+                        date_str_clean = date_str.replace(':', '-', 2)  # Replace first two colons
+                        dates[description] = date_str_clean
+                    else:
+                        dates[description] = date_str
+                except Exception:
+                    pass
+        
+        return dates
     
     def _extract_gps_data(self) -> Optional[Dict[str, Any]]:
         """Extract GPS coordinates from image EXIF data."""

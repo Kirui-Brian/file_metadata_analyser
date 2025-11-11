@@ -35,6 +35,15 @@ venv.bak/
 *~
 .DS_Store
 
+# MDs
+/FIXES_APPLIED.md
+/PRESENTATION.md
+/PROJECT_SUMMARY.md
+/REPORT_TEMPLATE.md
+/TIMESTAMP_FIX_SUMMARY.md
+/UNDERSTANDING_TIMESTAMPS.md
+/VISUAL_TIMESTAMP_GUIDE.md
+
 # Project specific
 output/*.html
 output/*.json
@@ -47,7 +56,7 @@ output/*.kml
 *.backup
 *~
 
-# Sample files (keep directory structure)
+# Sample files
 samples/*.jpg
 samples/*.jpeg
 samples/*.png

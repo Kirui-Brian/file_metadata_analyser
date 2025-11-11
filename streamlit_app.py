@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-File Metadata Analyser - Streamlit Web Interface
+File Metadata Analyzer - Streamlit Web Interface
 A user-friendly web GUI for metadata extraction, analysis, and visualization.
 
-Author: MST 8407 Course Project
+Author: Kirui Brian
 Date: November 2025
 """
 
@@ -19,7 +19,7 @@ import os
 sys.path.insert(0, str(Path(__file__).parent))
 
 from core.extractor import MetadataExtractor
-from core.Analyser import MetadataAnalyser
+from core.analyzer import MetadataAnalyzer
 from core.reporter import MetadataReporter
 from utils.gps_mapper import GPSMapper
 from utils.sanitizer import MetadataSanitizer
@@ -27,7 +27,7 @@ from utils.file_handler import FileHandler
 
 # Configure page
 st.set_page_config(
-    page_title="File Metadata Analyser",
+    page_title="File Metadata Analyzer",
     page_icon="🔍",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -84,7 +84,7 @@ def main():
     """Main application function."""
     
     # Header
-    st.markdown('<div class="main-header">🔍 File Metadata Analyser</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">🔍 File Metadata Analyzer</div>', unsafe_allow_html=True)
     st.markdown("**Digital Forensics Tool** | MST 8407 Course Project")
     
     # Sidebar
@@ -165,8 +165,8 @@ def analyze_files(uploaded_files, perform_analysis, show_exif, generate_map, sho
             # Perform analysis if requested
             analysis = None
             if perform_analysis:
-                Analyser = MetadataAnalyser(metadata)
-                analysis = Analyser.analyze()
+                analyzer = MetadataAnalyzer(metadata)
+                analysis = analyzer.analyze()
             
             results.append({
                 'filename': uploaded_file.name,
@@ -237,17 +237,48 @@ def display_file_result(result, show_exif, generate_map, show_hashes):
         
         # File Information
         file_info = metadata.get('file_info', {})
+        exif_data = metadata.get('exif_data', {})
         
         col1, col2, col3 = st.columns(3)
         with col1:
             st.write("**File Type:**", metadata.get('file_type', 'Unknown').title())
             st.write("**Size:**", file_info.get('size_human', 'N/A'))
         with col2:
-            st.write("**Created:**", file_info.get('created', 'N/A')[:19])
-            st.write("**Modified:**", file_info.get('modified', 'N/A')[:19])
-        with col3:
             st.write("**MIME Type:**", metadata.get('mime_type', 'N/A'))
-            st.write("**Accessed:**", file_info.get('accessed', 'N/A')[:19])
+        with col3:
+            pass
+        
+        # Display dates with proper context
+        st.markdown("---")
+        st.markdown("#### 📅 **Date Information**")
+        
+        # Check if EXIF dates exist (these are the ORIGINAL dates)
+        parsed_dates = exif_data.get('parsed_dates', {})
+        
+        if parsed_dates:
+            st.success("✅ **Original Dates (from EXIF metadata - these are accurate!)**")
+            date_col1, date_col2 = st.columns(2)
+            with date_col1:
+                for desc, date_val in parsed_dates.items():
+                    st.write(f"**{desc}:**", date_val)
+            
+            st.warning("⚠️ **File System Dates (when file was copied/moved to this location - may be recent!)**")
+            date_col3, date_col4, date_col5 = st.columns(3)
+            with date_col3:
+                st.write("**Created on disk:**", file_info.get('created', 'N/A')[:19])
+            with date_col4:
+                st.write("**Modified on disk:**", file_info.get('modified', 'N/A')[:19])
+            with date_col5:
+                st.write("**Last accessed:**", file_info.get('accessed', 'N/A')[:19])
+        else:
+            st.info("ℹ️ **File System Dates** (No EXIF dates found - these show when file was created/modified on this computer)")
+            date_col1, date_col2, date_col3 = st.columns(3)
+            with date_col1:
+                st.write("**Created:**", file_info.get('created', 'N/A')[:19])
+            with date_col2:
+                st.write("**Modified:**", file_info.get('modified', 'N/A')[:19])
+            with date_col3:
+                st.write("**Accessed:**", file_info.get('accessed', 'N/A')[:19])
         
         # Risk Assessment
         if analysis:
@@ -535,7 +566,7 @@ def sanitize_mode():
 def about_mode():
     """About and help mode."""
     
-    st.header("📚 About File Metadata Analyser")
+    st.header("📚 About File Metadata Analyzer")
     
     st.markdown("""
     ## 🔍 What is Metadata?
@@ -632,8 +663,8 @@ def about_mode():
     ## 🎓 Course Information
     
     **Course**: MST 8407 Forensic Data Acquisition and Analysis  
-    **Instructor**: Mr. Nelson Mutua  
-    **Project**: File Metadata Analyser  
+    **Lecturer**: Mr. Nelson Mutua  
+    **Project**: File Metadata Analyzer  
     **Date**: November 2025
     
     ## 📞 Getting Help
@@ -641,7 +672,6 @@ def about_mode():
     For detailed documentation:
     - See `README.md` for full documentation
     - See `QUICKSTART.md` for quick start guide
-    - See `PRESENTATION.md` for presentation materials
     
     ## ⚠️ Important Disclaimer
     
@@ -652,7 +682,7 @@ def about_mode():
     """)
     
     st.markdown("---")
-    st.info("**Version**: 1.0.0 | **Author**: MST 8407 Course Project")
+    st.info("**Version**: 1.0.0 | **Author**: Kirui Brian")
 
 
 if __name__ == '__main__':
