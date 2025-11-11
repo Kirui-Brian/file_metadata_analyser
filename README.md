@@ -248,7 +248,6 @@ This tool demonstrates:
 
 ## Future Enhancements
 
-- [ ] GUI interface using Streamlit
 - [ ] Database storage for large-scale analysis
 - [ ] Machine learning for anomaly detection
 - [ ] Cloud storage metadata extraction
